@@ -1,6 +1,5 @@
 package org.example;
 
-
 import org.example.extensions.ListNode;
 
 import java.util.HashMap;
@@ -209,7 +208,47 @@ public class Stage01 {
      * @return
      */
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        return 0;
+        int m = nums1.length;
+        int n = nums2.length;
+        int historyVal = 0;
+        boolean isEven = (m + n) % 2 == 0;
+        int c1 = 0, c2 = 0;
+        if (m == 0) {
+            return isEven ? (double) (nums2[n / 2 - 1] + nums2[n / 2]) / 2 : (double) nums2[n / 2];
+        }
+        if (n == 0) {
+            return isEven ? (double) (nums1[m / 2 - 1] + nums1[m / 2]) / 2 : (double) nums1[m / 2];
+        }
+        for (int i = 0; i < (m + n) / 2; i++) {
+            if (c1 < m && c2 < n) {
+                if (nums1[c1] < nums2[c2]) {
+                    historyVal = nums1[c1++];
+                } else {
+                    historyVal = nums2[c2++];
+                }
+            } else if (c1 < m) {
+                historyVal = nums1[c1++];
+            } else {
+                historyVal = nums2[c2++];
+            }
+        }
+        if (isEven) {
+            if (nums1[Math.min(c1, m - 1)] > historyVal && nums2[Math.min(c2, n - 1)] > historyVal) {
+                return (double) (historyVal + Math.min(nums1[Math.min(c1, m - 1)], nums2[Math.min(c2, n - 1)])) / 2;
+            } else if (nums1[Math.min(c1, m - 1)] < historyVal) {
+                return (double) (historyVal + nums2[c2]) / 2;
+            } else {
+                return (double) (historyVal + nums1[c1]) / 2;
+            }
+        } else {
+            if (nums1[Math.min(c1, m - 1)] > historyVal && nums2[Math.min(c2, n - 1)] > historyVal) {
+                return Math.min(nums1[Math.min(c1, m - 1)], nums2[Math.min(c2, n - 1)]);
+            } else if (nums1[Math.min(c1, m - 1)] < historyVal) {
+                return nums2[c2];
+            } else {
+                return nums1[c1];
+            }
+        }
     }
 
     /**
