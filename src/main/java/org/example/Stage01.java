@@ -11,6 +11,7 @@ public class Stage01 {
     }
 
     /**
+     * 01
      * 两数之和
      * <p>
      * 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。
@@ -64,6 +65,7 @@ public class Stage01 {
     }
 
     /**
+     * 02
      * 给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
      * <p>
      * 请你将两个数相加，并以相同形式返回一个表示和的链表。
@@ -120,6 +122,7 @@ public class Stage01 {
     }
 
     /**
+     * 03
      * 无重复字符的最长子串
      * <p>
      * 给定一个字符串 s ，请你找出其中不含有重复字符的 最长 子串 的长度。
@@ -172,6 +175,7 @@ public class Stage01 {
     }
 
     /**
+     * 04
      * 寻找两个正序数组的中位数
      * <p>
      * 给定两个大小分别为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。请你找出并返回这两个正序数组的 中位数 。
@@ -252,6 +256,7 @@ public class Stage01 {
     }
 
     /**
+     * 05
      * 最长回文子串
      * <p>
      * 给你一个字符串 s，找到 s 中最长的 回文 子串。
@@ -278,10 +283,47 @@ public class Stage01 {
      * @return
      */
     public String longestPalindrome(String s) {
-        return null;
+        if (s == null || s.isEmpty()) {
+            return "";
+        }
+        int start = 0, end = 0, maxLen = 0;
+        for (int i = 0; i < s.length(); i++) {
+            // odd
+            int left = i, right = i;
+            while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+                left--;
+                right++;
+            }
+            int s1 = left + 1;
+            int e1 = right - 1;
+            int len1 = e1 - s1 + 1;
+
+            // even
+            left = i;
+            right = i + 1;
+            while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+                left--;
+                right++;
+            }
+            int len2 = (right - 1) - (left + 1) + 1;
+
+            if (len1 > maxLen || len2 > maxLen) {
+                if (len1 > len2) {
+                    start = s1;
+                    end = e1;
+                    maxLen = len1;
+                } else {
+                    start = left + 1;
+                    end = right - 1;
+                    maxLen = len2;
+                }
+            }
+        }
+        return s.substring(start, end + 1);
     }
 
     /**
+     * 06
      * Z 字形变换
      * <p>
      * 将一个给定字符串 s 根据给定的行数 numRows ，以从上往下、从左到右进行 Z 字形排列。
@@ -320,10 +362,30 @@ public class Stage01 {
      * @return
      */
     public String convert(String s, int numRows) {
-        return null;
+        if (numRows == 1) {
+            return s;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < numRows; i++) {
+            sb.append(s.charAt(i));
+            for (int idx = i; idx < s.length(); ) {
+                idx = idx + (numRows - i - 1) + (numRows - i - 1);
+                if ((numRows - i - 1 != 0) && idx < s.length()) {
+                    sb.append(s.charAt(idx));
+                }
+                if (i != 0) {
+                    idx = idx + i + i;
+                    if (idx < s.length()) {
+                        sb.append(s.charAt(idx));
+                    }
+                }
+            }
+        }
+        return sb.toString();
     }
 
     /**
+     * 07
      * 整数反转
      * <p>
      * 给你一个 32 位的有符号整数 x ，返回将 x 中的数字部分反转后的结果。
@@ -359,10 +421,22 @@ public class Stage01 {
      * @return
      */
     public int reverse(int x) {
-        return 0;
+        boolean flag = x > 0;
+        String str = String.valueOf(Math.abs(x));
+        StringBuilder builder = new StringBuilder();
+        for (int i = str.length() - 1; i >= 0; i--) {
+            builder.append(str.charAt(i));
+        }
+        try {
+            int res = Integer.parseInt(builder.toString());
+            return flag ? res : -res;
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     /**
+     * 08
      * 字符串转换整数 (atoi)
      * <p>
      * 请你来实现一个 myAtoi(string s) 函数，使其能将字符串转换成一个 32 位有符号整数。
@@ -455,10 +529,95 @@ public class Stage01 {
      * @return
      */
     public int myAtoi(String s) {
-        return 0;
+        boolean trimFlag = true;
+        boolean signFlag = true;
+        boolean positiveFlag = true;
+        boolean zeroStartFlag = true;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == ' ') {
+                if (trimFlag) {
+                    continue;
+                } else {
+                    break;
+                }
+            } else if (c == '+' || c == '-') {
+                if (signFlag) {
+                    sb.append(c);
+                    positiveFlag = c == '+';
+                    trimFlag = false;
+                    signFlag = false;
+                } else {
+                    break;
+                }
+            } else if (c == '0') {
+                if (zeroStartFlag) {
+                    if (sb.length() == 0) {
+                        sb.append(c);
+                    } else if (sb.length() == 1) {
+                        char first = sb.charAt(0);
+                        if (first == '-' || first == '+') {
+                            sb.append(c);
+                        } else if (first == '0') {
+                        } else {
+                            sb.append(0);
+                        }
+                    } else if (sb.length() == 2) {
+                        char first = sb.charAt(0);
+                        char second = sb.charAt(1);
+                        if (first == '-' || first == '+') {
+                            if (second == '0') {
+                            } else {
+                                sb.append(0);
+                                zeroStartFlag = false;
+                            }
+                        } else {
+                            sb.append(0);
+                            zeroStartFlag = false;
+                        }
+                    }
+                } else {
+                    sb.append(c);
+                }
+                trimFlag = false;
+                signFlag = false;
+            } else if (c > '0' && c <= '9') {
+                if (sb.length() == 0) {
+                    sb.append(c);
+                } else if (sb.length() == 1) {
+                    char first = sb.charAt(0);
+                    if (first == '+' || first == '-') {
+                        sb.append(c);
+                    } else if (sb.charAt(0) == '0') {
+                        sb.deleteCharAt(0);
+                        sb.append(c);
+                    }
+                }
+                trimFlag = false;
+                signFlag = false;
+                zeroStartFlag = false;
+            } else {
+                break;
+            }
+        }
+        if (sb.length() > 0) {
+            try {
+                return Integer.parseInt(sb.toString());
+            } catch (Exception e) {
+                if (positiveFlag) {
+                    return Integer.MAX_VALUE;
+                } else {
+                    return Integer.MIN_VALUE;
+                }
+            }
+        } else {
+            return 0;
+        }
     }
 
     /**
+     * 09
      * 回文数
      * <p>
      * 给你一个整数 x ，如果 x 是一个回文整数，返回 true ；否则，返回 false 。
@@ -495,10 +654,21 @@ public class Stage01 {
      * @return
      */
     public boolean isPalindrome(int x) {
-        return false;
+        if (x < 0 || (x % 10 == 0 && x != 0)) {
+            return false;
+        }
+
+        int half = 0;
+        while (x > half) {
+            half = half * 10 + x % 10;
+            x /= 10;
+        }
+
+        return x == half || x == half / 10;
     }
 
     /**
+     * 10
      * 正则表达式匹配
      * <p>
      * 给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 '.' 和 '*' 的正则表达式匹配。
