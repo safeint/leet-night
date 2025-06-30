@@ -47,9 +47,6 @@ public class Stage01 {
      * <p>
      * 进阶：你可以想出一个时间复杂度小于 O(n2) 的算法吗
      *
-     * @param nums
-     * @param target
-     * @return
      */
     public int[] twoSum(int[] nums, int target) {
         Map<Integer, Integer> idxMap = new HashMap<>(nums.length);
@@ -95,10 +92,6 @@ public class Stage01 {
      * 每个链表中的节点数在范围 [1, 100] 内
      * 0 <= Node.val <= 9
      * 题目数据保证列表表示的数字不含前导零
-     *
-     * @param l1
-     * @param l2
-     * @return
      */
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode head = new ListNode(0);
@@ -151,9 +144,6 @@ public class Stage01 {
      * <p>
      * 0 <= s.length <= 5 * 104
      * s 由英文字母、数字、符号和空格组成
-     *
-     * @param s
-     * @return
      */
     public int lengthOfLongestSubstring(String s) {
         char[] charArr = s.toCharArray();
@@ -206,10 +196,6 @@ public class Stage01 {
      * 0 <= n <= 1000
      * 1 <= m + n <= 2000
      * -106 <= nums1[i], nums2[i] <= 106
-     *
-     * @param nums1
-     * @param nums2
-     * @return
      */
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         int m = nums1.length;
@@ -278,9 +264,6 @@ public class Stage01 {
      * <p>
      * 1 <= s.length <= 1000
      * s 仅由数字和英文字母组成
-     *
-     * @param s
-     * @return
      */
     public String longestPalindrome(String s) {
         if (s == null || s.isEmpty()) {
@@ -356,10 +339,6 @@ public class Stage01 {
      * <p>
      * 输入：s = "A", numRows = 1
      * 输出："A"
-     *
-     * @param s
-     * @param numRows
-     * @return
      */
     public String convert(String s, int numRows) {
         if (numRows == 1) {
@@ -416,9 +395,6 @@ public class Stage01 {
      * 提示：
      * <p>
      * -231 <= x <= 231 - 1
-     *
-     * @param x
-     * @return
      */
     public int reverse(int x) {
         boolean flag = x > 0;
@@ -524,9 +500,6 @@ public class Stage01 {
      * <p>
      * 0 <= s.length <= 200
      * s 由英文字母（大写和小写）、数字（0-9）、' '、'+'、'-' 和 '.' 组成
-     *
-     * @param s
-     * @return
      */
     public int myAtoi(String s) {
         boolean trimFlag = true;
@@ -649,9 +622,6 @@ public class Stage01 {
      * <p>
      * <p>
      * 进阶：你能不将整数转为字符串来解决这个问题吗？
-     *
-     * @param x
-     * @return
      */
     public boolean isPalindrome(int x) {
         if (x < 0 || (x % 10 == 0 && x != 0)) {
@@ -702,10 +672,6 @@ public class Stage01 {
      * s 只包含从 a-z 的小写字母。
      * p 只包含从 a-z 的小写字母，以及字符 . 和 *。
      * 保证每次出现字符 * 时，前面都匹配到有效的字符
-     *
-     * @param s
-     * @param p
-     * @return
      */
     public boolean isMatch(String s, String p) {
         int m = s.length(), n = p.length();
