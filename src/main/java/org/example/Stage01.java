@@ -6,10 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Stage01 {
-    public static void main(String[] args) {
-
-    }
-
     /**
      * 01
      * 两数之和
