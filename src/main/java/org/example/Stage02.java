@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.List;
+
 public class Stage02 {
 
     /**
@@ -32,12 +34,9 @@ public class Stage02 {
      * n == height.length
      * 2 <= n <= 105
      * 0 <= height[i] <= 104
-     *
-     * @param height
-     * @return
      */
     public int maxArea(int[] height) {
-
+        return 0;
     }
 
 
@@ -102,12 +101,9 @@ public class Stage02 {
      * 提示：
      * <p>
      * 1 <= num <= 3999
-     *
-     * @param num
-     * @return
      */
     public String intToRoman(int num) {
-
+        return null;
     }
 
 
@@ -166,12 +162,9 @@ public class Stage02 {
      * 题目所给测试用例皆符合罗马数字书写规则，不会出现跨位等情况。
      * IL 和 IM 这样的例子并不符合题目要求，49 应该写作 XLIX，999 应该写作 CMXCIX 。
      * 关于罗马数字的详尽书写规则，可以参考 罗马数字 - 百度百科。
-     *
-     * @param s
-     * @return
      */
     public int romanToInt(String s) {
-
+        return 0;
     }
 
 
@@ -199,12 +192,9 @@ public class Stage02 {
      * 1 <= strs.length <= 200
      * 0 <= strs[i].length <= 200
      * strs[i] 如果非空，则仅由小写英文字母组成
-     *
-     * @param strs
-     * @return
      */
     public String longestCommonPrefix(String[] strs) {
-
+        return null;
     }
 
 
@@ -244,12 +234,9 @@ public class Stage02 {
      * <p>
      * 3 <= nums.length <= 3000
      * -105 <= nums[i] <= 105
-     *
-     * @param nums
-     * @return
      */
     public List<List<Integer>> threeSum(int[] nums) {
-
+        return null;
     }
 
 
@@ -280,13 +267,9 @@ public class Stage02 {
      * 3 <= nums.length <= 1000
      * -1000 <= nums[i] <= 1000
      * -104 <= target <= 104
-     *
-     * @param nums
-     * @param target
-     * @return
      */
     public int threeSumClosest(int[] nums, int target) {
-
+        return 0;
     }
 
 
@@ -318,12 +301,9 @@ public class Stage02 {
      * <p>
      * 0 <= digits.length <= 4
      * digits[i] 是范围 ['2', '9'] 的一个数字。
-     *
-     * @param digits
-     * @return
      */
     public List<String> letterCombinations(String digits) {
-
+        return null;
     }
 
 
@@ -353,17 +333,13 @@ public class Stage02 {
      * 1 <= nums.length <= 200
      * -109 <= nums[i] <= 109
      * -109 <= target <= 109
-     *
-     * @param nums
-     * @param target
-     * @return
      */
     public List<List<Integer>> fourSum(int[] nums, int target) {
-
+        return null;
     }
 
 
-    public class ListNode {
+    public static class ListNode {
         int val;
         ListNode next;
 
@@ -410,13 +386,9 @@ public class Stage02 {
      * <p>
      * <p>
      * 进阶：你能尝试使用一趟扫描实现吗？
-     *
-     * @param head
-     * @param n
-     * @return
      */
     public ListNode removeNthFromEnd(ListNode head, int n) {
-
+        return null;
     }
 
     /**
@@ -460,11 +432,8 @@ public class Stage02 {
      * <p>
      * 1 <= s.length <= 104
      * s 仅由括号 '()[]{}' 组成
-     *
-     * @param s
-     * @return
      */
     public boolean isValid(String s) {
-
+        return false;
     }
 }
