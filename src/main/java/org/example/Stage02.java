@@ -1,9 +1,12 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Stage02 {
-
     /**
      * 11. 盛最多水的容器
      * 给定一个长度为 n 的整数数组 height 。有 n 条垂线，第 i 条线的两个端点是 (i, 0) 和 (i, height[i]) 。
@@ -36,7 +39,13 @@ public class Stage02 {
      * 0 <= height[i] <= 104
      */
     public int maxArea(int[] height) {
-        return 0;
+        int area = 0;
+        for (int i = 0; i < height.length; i++) {
+            for (int j = i + 1; j < height.length; j++) {
+                area = Math.max(area, Math.min(height[i], height[j]) * (j - i));
+            }
+        }
+        return area;
     }
 
 
@@ -103,7 +112,67 @@ public class Stage02 {
      * 1 <= num <= 3999
      */
     public String intToRoman(int num) {
-        return null;
+        StringBuilder sb = new StringBuilder();
+        String numStr = String.valueOf(num);
+        for (int i = numStr.length(); i > 0; i--) {
+            int subNum = Integer.parseInt(numStr.substring(numStr.length() - i, numStr.length() - i + 1));
+            switch (i) {
+                case 4:
+                    for (int j = 0; j < subNum; j++) {
+                        sb.append("M");
+                    }
+                    break;
+                case 3:
+                    if (subNum == 4) {
+                        sb.append("CD");
+                    } else if (subNum == 9) {
+                        sb.append("CM");
+                    } else if (subNum < 4) {
+                        for (int j = 0; j < subNum; j++) {
+                            sb.append("C");
+                        }
+                    } else {
+                        sb.append("D");
+                        for (int j = 0; j < subNum - 5; j++) {
+                            sb.append("C");
+                        }
+                    }
+                    break;
+                case 2:
+                    if (subNum == 4) {
+                        sb.append("XL");
+                    } else if (subNum == 9) {
+                        sb.append("XC");
+                    } else if (subNum < 4) {
+                        for (int j = 0; j < subNum; j++) {
+                            sb.append("X");
+                        }
+                    } else {
+                        sb.append("L");
+                        for (int j = 0; j < subNum - 5; j++) {
+                            sb.append("X");
+                        }
+                    }
+                    break;
+                case 1:
+                    if (subNum == 4) {
+                        sb.append("IV");
+                    } else if (subNum == 9) {
+                        sb.append("IX");
+                    } else if (subNum < 4) {
+                        for (int j = 0; j < subNum; j++) {
+                            sb.append("I");
+                        }
+                    } else {
+                        sb.append("V");
+                        for (int j = 0; j < subNum - 5; j++) {
+                            sb.append("I");
+                        }
+                    }
+                    break;
+            }
+        }
+        return sb.toString();
     }
 
 
@@ -164,7 +233,32 @@ public class Stage02 {
      * 关于罗马数字的详尽书写规则，可以参考 罗马数字 - 百度百科。
      */
     public int romanToInt(String s) {
-        return 0;
+        Map<Character, Integer> baseMap = new HashMap<>();
+        baseMap.put('I', 1);
+        baseMap.put('V', 5);
+        baseMap.put('X', 10);
+        baseMap.put('L', 50);
+        baseMap.put('C', 100);
+        baseMap.put('D', 500);
+        baseMap.put('M', 1000);
+        int count = 0;
+        for (int i = 0; i < s.length(); ) {
+            int curVal = baseMap.get(s.charAt(i));
+            if (i == s.length() - 1) {
+                count += curVal;
+                return count;
+            }
+            int nextVal = baseMap.get(s.charAt(i + 1));
+
+            if (curVal < nextVal) {
+                count += nextVal - curVal;
+                i += 2;
+            } else {
+                count += curVal;
+                i += 1;
+            }
+        }
+        return count;
     }
 
 
@@ -194,7 +288,25 @@ public class Stage02 {
      * strs[i] 如果非空，则仅由小写英文字母组成
      */
     public String longestCommonPrefix(String[] strs) {
-        return null;
+        StringBuilder sb = new StringBuilder("");
+        for (int i = 0; i < strs[0].length(); i++) {
+            char c = strs[0].charAt(i);
+            boolean flag = true;
+            for (String str : strs) {
+                if (str.length() <= i) {
+                    flag = false;
+                    break;
+                }
+                boolean check = str.charAt(i) == c;
+                flag &= check;
+            }
+            if (flag) {
+                sb.append(c);
+            } else {
+                break;
+            }
+        }
+        return sb.toString();
     }
 
 
@@ -236,7 +348,33 @@ public class Stage02 {
      * -105 <= nums[i] <= 105
      */
     public List<List<Integer>> threeSum(int[] nums) {
-        return null;
+        Arrays.sort(nums);
+        List<List<Integer>> res = new ArrayList<>();
+        for (int i = 0; i < nums.length - 2; ) {
+            if (nums[i] > 0) break;
+            int target = -nums[i];
+            int j = i + 1, k = nums.length - 1;
+            while (j < k) {
+                int sum = nums[j] + nums[k];
+                if (sum == target) {
+                    List<Integer> list = Arrays.asList(nums[i], nums[j], nums[k]);
+                    res.add(list);
+                    j++;
+                    k--;
+                    while (j < k && nums[j] == nums[j - 1]) j++;
+                    while (j < k && nums[k] == nums[k + 1]) k--;
+                } else if (sum < target) {
+                    do j++;
+                    while (j < k && nums[j] == nums[j - 1]);
+                } else {
+                    do k--;
+                    while (j < k && nums[k] == nums[k + 1]);
+                }
+            }
+            do i++;
+            while (i < nums.length - 2 && nums[i] == nums[i - 1]);
+        }
+        return res;
     }
 
 
