@@ -1,4 +1,4 @@
-package org.example;
+package com.company.throb;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,6 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author z20712
+ * @since 4.0.0
+ */
 public class Stage02 {
     /**
      * 11. 盛最多水的容器
@@ -407,15 +411,42 @@ public class Stage02 {
      * -104 <= target <= 104
      */
     public int threeSumClosest(int[] nums, int target) {
-        return 0;
-    }
+        Arrays.sort(nums);
+        int res = nums[0] + nums[1] + nums[2];
 
+        for (int i = 0; i < nums.length - 2; ) {
+            int j = i + 1, k = nums.length - 1;
+            while (j < k) {
+                int sum = nums[i] + nums[j] + nums[k];
+                int diff = Math.abs(target - sum);
+                if (diff < Math.abs(target - res)) {
+                    res = nums[i] + nums[j] + nums[k];
+                    if (diff == 0) {
+                        return res;
+                    }
+                }
+                if (sum > target) {
+                    do k--;
+                    while (j < k && nums[k] == nums[k + 1]);
+                } else {
+                    do j++;
+                    while (j < k && nums[j] == nums[j - 1]);
+                }
+            }
+            do i++;
+            while (i < nums.length - 2 && nums[i] == nums[i - 1]);
+        }
+        return res;
+    }
 
     /**
      * 17. 电话号码的字母组合
      * 给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。答案可以按 任意顺序 返回。
      * <p>
      * 给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
+     * | abc | def
+     * ghi   | jkl | mno
+     * prqs  | tuv | wxyz
      * <p>
      * <p>
      * <p>
@@ -441,7 +472,31 @@ public class Stage02 {
      * digits[i] 是范围 ['2', '9'] 的一个数字。
      */
     public List<String> letterCombinations(String digits) {
-        return null;
+        List<String> res = new ArrayList<>();
+        Map<Integer, String> map = new HashMap<>();
+        map.put(2, "abc");
+        map.put(3, "def");
+        map.put(4, "ghi");
+        map.put(5, "jkl");
+        map.put(6, "mno");
+        map.put(7, "pqrs");
+        map.put(8, "tuv");
+        map.put(9, "wxyz");
+        for (int i = 0; i < digits.length(); i++) {
+            String str = map.get(Integer.parseInt(digits.charAt(i) + ""));
+            List<String> temp = new ArrayList<>(res);
+            res.clear();
+            for (int j = 0; j < str.length(); j++) {
+                if (temp.isEmpty()) {
+                    res.add(String.valueOf(str.charAt(j)));
+                } else {
+                    for (String t : temp) {
+                        res.add(t + str.charAt(j));
+                    }
+                }
+            }
+        }
+        return res;
     }
 
 
@@ -473,7 +528,32 @@ public class Stage02 {
      * -109 <= target <= 109
      */
     public List<List<Integer>> fourSum(int[] nums, int target) {
-        return null;
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length - 3; i++) {
+            while (i > 0 && i < nums.length - 3 && nums[i - 1] == nums[i]) i++;
+            for (int j = i + 1; j < nums.length - 2; j++) {
+                while (j > i + 1 && j < nums.length - 2 && nums[j - 1] == nums[j]) j++;
+                int left = j + 1, right = nums.length - 1;
+                while (left < right) {
+                    if (nums[i] + nums[j] + nums[left] + nums[right] == target) {
+                        List<Integer> list = Arrays.asList(nums[i], nums[j], nums[left], nums[right]);
+                        res.add(list);
+                        while (left + 1 < right && nums[left + 1] == nums[left]) left++;
+                        while (left < right - 1 && nums[right] == nums[right - 1]) right--;
+                        left++;
+                        right--;
+                    } else if (nums[i] + nums[j] + nums[left] + nums[right] > target) {
+                        do right--;
+                        while (left < right - 1 && nums[right] == nums[right - 1]);
+                    } else {
+                        do left++;
+                        while (left + 1 < right && nums[left + 1] == nums[left]);
+                    }
+                }
+            }
+        }
+        return res;
     }
 
 
