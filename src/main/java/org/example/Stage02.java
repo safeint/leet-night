@@ -8,10 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author z20712
- * @since 4.0.0
- */
 public class Stage02 {
     /**
      * 11. 盛最多水的容器
