@@ -1,7 +1,9 @@
-package com.company.throb;
+package org.example;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -606,7 +608,18 @@ public class Stage02 {
      * 进阶：你能尝试使用一趟扫描实现吗？
      */
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        return null;
+        ListNode dummy = new ListNode(0, head);
+        ListNode first = head;
+        ListNode second = dummy;
+        for (int i = 0; i < n; i++) {
+            first = first.next;
+        }
+        while (first != null) {
+            first = first.next;
+            second = second.next;
+        }
+        second.next = second.next.next;
+        return dummy.next;
     }
 
     /**
@@ -652,6 +665,22 @@ public class Stage02 {
      * s 仅由括号 '()[]{}' 组成
      */
     public boolean isValid(String s) {
-        return false;
+        Deque<Character> stack = new ArrayDeque<>();
+        for (char c : s.toCharArray()) {
+            if (c == '(' || c == '[' || c == '{') {
+                stack.push(c);
+            } else {
+                if (stack.isEmpty()) {
+                    return false;
+                }
+                char top = stack.pop();
+                if ((c == ')' && top != '(') ||
+                        (c == ']' && top != '[') ||
+                        (c == '}' && top != '{')) {
+                    return false;
+                }
+            }
+        }
+        return stack.isEmpty();
     }
 }
